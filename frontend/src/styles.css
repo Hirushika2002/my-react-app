@@ -114,3 +114,58 @@ input.input:valid{background-image:var(--left-icon),url("data:image/svg+xml;utf8
 .price span{color:var(--subtext)}
 @media(min-width:720px){.hotel-card{grid-column:span 6}.hotel-img{height:180px}}
 @media(min-width:1024px){.hotel-card{grid-column:span 4}.hotel-img{height:200px}}
+
+/* Reviews */
+.review-list{display:grid;gap:12px;margin-top:12px}
+.review{border:1px solid var(--border);padding:12px;border-radius:10px;background:#fff}
+.review .rating{color:#f59e0b;font-weight:700}
+.review-body{margin-top:8px;color:var(--text)}
+.review-form .input{border-bottom-color:#e6edf2}
+.review-form textarea.input{resize:vertical}
+.review-list .muted{margin-left:8px;color:var(--subtext)}
+
+/* Review form specifics */
+.review-form h4{margin:12px 0 8px;font-size:14px}
+.star-btn{background:transparent;border:0;cursor:pointer;color:#cbd5e1}
+.star-btn.active{color:#f59e0b}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(100px,1fr));gap:8px;margin-top:8px}
+.thumb{position:relative;border:1px solid var(--border);border-radius:8px;overflow:hidden;height:100px;display:flex;align-items:center;justify-content:center}
+.thumb img{max-width:100%;max-height:100%;object-fit:cover}
+.photo-tip{color:var(--subtext)}
+
+/* Home brief review photos */
+.home-review-photos{display:flex;gap:8px;margin-top:8px}
+.home-thumb{width:72px;height:72px;border-radius:8px;overflow:hidden;border:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+.home-thumb img{width:100%;height:100%;object-fit:cover}
+
+/* All reviews on home */
+.all-reviews h2{margin:0}
+.reviews-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.review-card{grid-column:span 12;padding:12px}
+@media(min-width:720px){.review-card{grid-column:span 6}}
+@media(min-width:1024px){.review-card{grid-column:span 4}}
+
+/* My bookings styles */
+.mybookings h1{margin:0 0 12px}
+.booking-card{display:block;padding:14px;border-radius:12px;border:1px solid var(--border);background:#fff}
+.booking-card .badge{background:#eef2ff;color:#1e40af;border:1px solid #dbeafe;padding:6px 10px;border-radius:9999px}
+.mybookings .btn{padding:8px 10px;border-radius:8px}
+
+/* Profile bookings styles */
+.booking-card{display:block;padding:14px;border-radius:12px;border:1px solid var(--border);background:linear-gradient(180deg,#fff,#fbfffb)}
+.booking-card strong{display:block}
+.booking-card .muted{margin-top:6px}
+.booking-card .btn{padding:8px 10px;border-radius:8px}
+
+/* Availability calendar styles */
+.availability-card{max-width:420px}
+.calendar-grid .cal-cell{border:1px solid var(--border);background:#fff}
+.calendar-grid .cal-cell.empty{background:transparent;border:0}
+.calendar-grid .cal-cell.blocked{background:linear-gradient(180deg,#fff6f6,#fff1f0);border-color:#fee2e2}
+.calendar-grid .cal-cell.available{background:linear-gradient(180deg,#f6fffb,#f0fdf4);border-color:#d1fae5}
+
+
+
+
+
+

@@ -7,6 +7,9 @@ import About from './About.jsx';
 import Settings from './Settings.jsx';
 import Profile from './Profile.jsx';
 import Hotels from './Hotels.jsx';
+import Payment from './Payment.jsx';
+import PayPalMock from './PayPalMock.jsx';
+import MyBookings from './MyBookings.jsx';
 
 function App() {
     const location = useLocation();
@@ -42,6 +45,9 @@ function App() {
 				<Route path="/signup" element={<SignUp />} />
 				<Route path="/dashboard" element={<Dashboard />} />
 				<Route path="/hotels" element={<Hotels />} />
+				<Route path="/mybookings" element={<MyBookings />} />
+				<Route path="/payment" element={<Payment />} />
+				<Route path="/paypal" element={<PayPalMock />} />
 				<Route path="/about" element={<About />} />
 				<Route path="/settings" element={<Settings />} />
 				<Route path="/profile" element={<Profile />} />

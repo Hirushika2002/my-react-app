@@ -183,7 +183,7 @@ function SignUp() {
                 value={formData.password}
                 onChange={handleChange}
               />
-              {/* Strength meter */}
+             
               <div style={{ height: 6, background: "#f1f5f9", borderRadius: 9999, overflow: "hidden", marginTop: 6 }}>
                 <div style={{ width: `${strength.percent}%`, height: "100%", background: strength.color, transition: "width .2s ease" }} />
               </div>
