@@ -10,6 +10,12 @@ RUN npm run build
 
 FROM nginx:stable-alpine
 
+
+ARG GIT_REMOTE="https://github.com/Hirushika2002/my-react-app"
+ARG GIT_COMMIT="unknown"
+LABEL org.opencontainers.image.source="${GIT_REMOTE}"
+LABEL org.opencontainers.image.revision="${GIT_COMMIT}"
+
 RUN rm -rf /usr/share/nginx/html/*
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
