@@ -45,7 +45,7 @@ function MyBookings() {
       <p><strong>Check-in:</strong> ${new Date(b.checkIn).toLocaleString()}</p>
       <p><strong>Check-out:</strong> ${new Date(b.checkOut).toLocaleString()}</p>
       <p><strong>Status:</strong> ${b.status}</p>
-      <p style="margin-top:24px;">Thank you for booking with HotelEase.</p>
+  <p style="margin-top:24px;">Thank you for booking with Smart Stays.</p>
       <script>window.print();</script>
       </body></html>
     `;

@@ -49,18 +49,37 @@ function Hotels() {
     }
   };
 
-  useEffect(() => { load();
-    // if navigated here with state to open reviews for a hotel
-    try {
-      const target = location?.state?.openReviewsFor;
-      if (target) {
-        const h = seedHotels.find(x => Number(x.id) === Number(target));
-        if (h) openReviews(h);
-        // clear the navigation state so repeated visits don't auto-open
-        navigate(location.pathname, { replace: true, state: {} });
-      }
-    } catch (e) {}
+  useEffect(() => {
+    load();
   }, []);
+
+  useEffect(() => {
+    const state = location?.state;
+    if (!state) return;
+    let shouldClearState = false;
+    try {
+      if (state.openReviewsFor) {
+        const h = seedHotels.find((x) => Number(x.id) === Number(state.openReviewsFor));
+        if (h) openReviews(h);
+        shouldClearState = true;
+      }
+      if (state.prefillRoom) {
+        const room = state.prefillRoom;
+        setSelectedHotel(null);
+        setForm((prev) => ({
+          ...prev,
+          roomNumber: room.roomNumber || prev.roomNumber,
+          notes: room.name ? `Room: ${room.name}` : prev.notes
+        }));
+        shouldClearState = true;
+      }
+    } catch (e) {
+      console.error('Failed to process navigation state', e);
+    }
+    if (shouldClearState) {
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location, navigate]);
 
   const save = async (e) => {
     e.preventDefault();

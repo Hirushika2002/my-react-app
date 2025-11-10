@@ -3,6 +3,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import User from './user.js';
 import Booking from './booking.js';
+import Room from './room.js';
 
 const app = express();
 const port = 3000;
@@ -108,6 +109,51 @@ async function seedAvailability() {
 // run seed after a short delay to ensure DB connection is ready
 setTimeout(() => { seedAvailability(); }, 1500);
 
+async function seedRooms() {
+    try {
+        const existing = await Room.findOne({ roomNumber: '101' });
+        if (existing) return;
+        const seedData = [
+            {
+                name: 'City View Deluxe',
+                roomNumber: '101',
+                type: 'Deluxe',
+                price: 189,
+                amenities: ['King bed', 'City skyline view', 'Fast Wi-Fi'],
+                description: 'Spacious room overlooking the Colombo skyline with access to the executive lounge.',
+                images: ['https://images.unsplash.com/photo-1501117716987-c8e1ecb21078?auto=format&fit=crop&w=1200&q=80'],
+                capacity: 2
+            },
+            {
+                name: 'Family Suite',
+                roomNumber: '202',
+                type: 'Suite',
+                price: 249,
+                amenities: ['Two queen beds', 'Kitchenette', 'Balcony'],
+                description: 'Ideal for families with separate living space and on-demand in-room dining.',
+                images: ['https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80'],
+                capacity: 4
+            },
+            {
+                name: 'Garden Villa',
+                roomNumber: 'V3',
+                type: 'Villa',
+                price: 325,
+                amenities: ['Private plunge pool', 'Outdoor shower', 'Butler service'],
+                description: 'Standalone villa surrounded by tropical gardens, perfect for honeymoons.',
+                images: ['https://images.unsplash.com/photo-1528901166007-3784c7dd3653?auto=format&fit=crop&w=1200&q=80'],
+                capacity: 2
+            }
+        ];
+        await Room.insertMany(seedData);
+        console.log('Seeded default rooms');
+    } catch (e) {
+        console.error('Failed to seed rooms', e);
+    }
+}
+
+setTimeout(() => { seedRooms(); }, 2000);
+
 // Bookings CRUD
 const base = '/api/bookings';
 
@@ -166,6 +212,52 @@ app.delete(`${base}/:id`, async (req, res) => {
     try {
         const b = await Booking.findByIdAndDelete(req.params.id);
         if (!b) return res.status(404).json({ message: 'Not found' });
+        res.json({ message: 'Deleted' });
+    } catch (e) {
+        console.error(e);
+        res.status(400).json({ message: 'Invalid id' });
+    }
+});
+
+// Room management endpoints
+const roomsBase = '/api/rooms';
+
+app.get(roomsBase, async (_req, res) => {
+    try {
+        const rooms = await Room.find().sort({ price: 1 });
+        res.json(rooms);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ message: 'Failed to load rooms' });
+    }
+});
+
+app.post(roomsBase, async (req, res) => {
+    try {
+        const room = new Room(req.body);
+        await room.save();
+        res.status(201).json(room);
+    } catch (e) {
+        console.error(e);
+        res.status(400).json({ message: 'Invalid room data' });
+    }
+});
+
+app.put(`${roomsBase}/:id`, async (req, res) => {
+    try {
+        const room = await Room.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        if (!room) return res.status(404).json({ message: 'Not found' });
+        res.json(room);
+    } catch (e) {
+        console.error(e);
+        res.status(400).json({ message: 'Invalid room data' });
+    }
+});
+
+app.delete(`${roomsBase}/:id`, async (req, res) => {
+    try {
+        const room = await Room.findByIdAndDelete(req.params.id);
+        if (!room) return res.status(404).json({ message: 'Not found' });
         res.json({ message: 'Deleted' });
     } catch (e) {
         console.error(e);
